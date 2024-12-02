@@ -10,6 +10,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateOffsetAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -36,8 +37,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -79,6 +82,10 @@ fun Animation( m: Modifier = Modifier) {
     //大小動畫
     val rocketSize by animateDpAsState(
         if (fly) 75.dp else 150.dp,
+        animationSpec = tween(2000)
+    )
+    val rocketOffset by animateOffsetAsState(
+        if (fly) Offset(200f, -50f) else Offset(200f, 400f),
         animationSpec = tween(2000)
     )
 
@@ -135,6 +142,7 @@ fun Animation( m: Modifier = Modifier) {
                 contentDescription = "火箭",
                 modifier = Modifier
                     .size(rocketSize)
+                    .offset(rocketOffset.x.dp, rocketOffset.y.dp)
                     .clickable(
                     ) {
                         fly = !fly
