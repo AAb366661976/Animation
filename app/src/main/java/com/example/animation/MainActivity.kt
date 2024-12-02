@@ -77,7 +77,10 @@ fun Animation( m: Modifier = Modifier) {
 
 
 
-    Column (Modifier.background(backgroundColor)){
+    Column (modifier= Modifier
+        .background(backgroundColor)
+        .fillMaxSize()
+    ){
         Button(
             onClick = { appear = !appear },
             modifier = m.rotate(buttonAngle)
