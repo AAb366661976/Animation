@@ -63,7 +63,7 @@ class MainActivity : ComponentActivity() {
 fun Animation( m: Modifier = Modifier) {
     var appear by remember { mutableStateOf(true) }  //背景出現
     var expanded by remember { mutableStateOf(true) }  //背景延展
-
+    var fly by remember { mutableStateOf(false) }  //火箭升空
     //角度動畫
     val buttonAngle by animateFloatAsState(
         if (appear) 360f else 0f,
@@ -122,10 +122,17 @@ fun Animation( m: Modifier = Modifier) {
                     }
 
             )
+            Image(
+                painter = painterResource(id = R.drawable.rocket),
+                contentDescription = "火箭",
+                modifier = Modifier
+                    .clickable(
+                    ) {
+                        fly = !fly
+                    }
+            )
+
         }
-
-
-
 
     }
 }
