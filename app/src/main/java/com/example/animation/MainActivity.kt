@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -32,6 +33,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
@@ -59,11 +61,17 @@ fun Animation( m: Modifier = Modifier) {
     var appear by remember { mutableStateOf(true) }  //背景出現
     var expanded by remember { mutableStateOf(true) }  //背景延展
 
+    //角度動畫
+    val buttonAngle by animateFloatAsState(
+        if (appear) 360f else 0f,
+        animationSpec = tween(durationMillis = 2500)
+    )
+
 
     Column {
         Button(
             onClick = { appear = !appear },
-            modifier = m
+            modifier = m.rotate(buttonAngle)
         ) {
             if (appear) Text(text = "星空背景圖消失")
             else Text(text = "星空背景圖出現")
