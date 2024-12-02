@@ -74,10 +74,11 @@ fun Animation( m: Modifier = Modifier) {
 
             exit = fadeOut(
                 animationSpec = tween(durationMillis = 5000))
-            + slideOutHorizontally(
+                    + slideOutHorizontally(
                 animationSpec = tween(durationMillis = 5000)) { fullWidth ->
-                fullWidth / 3
+                -fullWidth / 3
             }
+
 
 
         ){
