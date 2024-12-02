@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -30,10 +31,12 @@ import androidx.compose.foundation.layout.Column
 
 import androidx.compose.material3.Button
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
@@ -66,9 +69,15 @@ fun Animation( m: Modifier = Modifier) {
         if (appear) 360f else 0f,
         animationSpec = tween(durationMillis = 2500)
     )
+    //顏色動畫
+    val backgroundColor by animateColorAsState(
+        if (appear) Color.Transparent else Color.Green,
+        animationSpec = tween(2000, 500)
+    )
 
 
-    Column {
+
+    Column (Modifier.background(backgroundColor)){
         Button(
             onClick = { appear = !appear },
             modifier = m.rotate(buttonAngle)
