@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -28,7 +29,11 @@ import androidx.compose.foundation.layout.Column
 
 import androidx.compose.material3.Button
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 
 
 class MainActivity : ComponentActivity() {
@@ -52,6 +57,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Animation( m: Modifier = Modifier) {
     var appear by remember { mutableStateOf(true) }  //背景出現
+    var expanded by remember { mutableStateOf(true) }  //背景延展
+
 
     Column {
         Button(
@@ -84,7 +91,16 @@ fun Animation( m: Modifier = Modifier) {
         ){
             Image(
                 painter = painterResource(id = R.drawable.sky),
-                contentDescription = "星空背景圖"
+                contentDescription = "星空背景圖",
+                modifier = Modifier
+                    .animateContentSize()
+                    .fillMaxWidth()
+                    .height(if (expanded) 600.dp else 400.dp)
+                    .clickable(
+                    ) {
+                        expanded = !expanded
+                    }
+
             )
         }
 
